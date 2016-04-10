@@ -25,10 +25,15 @@
 
  		var defered = $q.defer()
 
- 		if(value=='one')
+ 		setTimeout(function(){
+
+ 			if(value=='one')
  		defered.resolve('im resolve')
  		else
  			defered.reject('im rejected')
+ 			
+ 		},2000)
+ 		
 
 
  		return defered.promise;
