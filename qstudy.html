@@ -59,6 +59,8 @@
  		return defered.promise;
  	}
 
+ 	
+
  	$scope.one()
 
  	$scope.onePromise = function(){
@@ -145,6 +147,106 @@
  	}
 
  	$scope.onePromiseFive()
+
+
+ 	$scope.oneWhen = function(value){
+
+ 		var defered = $q.defer();
+
+ 		var when = $q.when(value==='three',function(){
+
+ 			defered.resolve(' onePromiseSix  Success')
+ 		},function(){
+
+ 			defered.reject(' onePromiseSix  Error')
+ 		})
+
+ 		return defered.promise;
+
+ 	}
+
+
+ 	$scope.onePromiseSix = function(){
+
+ 		var promise = $scope.oneWhen('two');
+
+ 		promise.then(function(response){
+
+ 			console.log(response,' onePromiseSix  Success')
+ 		},function(error){
+
+ 			console.log(error,' onePromiseSix  Error')
+ 		},function(notify){
+
+ 			console.log(notify,' onePromiseSix  Notify')
+ 		})
+ 	}
+
+ 	$scope.onePromiseSix()
+
+
+
+ 	/* study $q.all */
+
+
+	 	$scope.asyncA = function(value) {
+
+	 		var defered = $q.defer()
+
+	 		setTimeout(function(){
+
+	 			if(value=='a')
+	 		defered.resolve('asyncA resolve')
+	 		else
+	 			defered.reject('asyncA rejected')
+
+	 		},2000)
+	 		
+	 		return defered.promise;
+	 	}
+
+	 	$scope.asyncB = function(value) {
+
+	 		var defered = $q.defer()
+
+	 		setTimeout(function(){
+
+	 			if(value=='b')
+	 		defered.resolve('asyncB resolve')
+	 		else
+	 			defered.reject('asyncB rejected')
+
+	 		},2000)
+	 		
+	 		return defered.promise;
+	 	}
+
+	 	$scope.asyncC = function(value) {
+
+	 		var defered = $q.defer()
+
+	 		setTimeout(function(){
+
+	 			if(value=='c')
+	 		defered.resolve('asyncC resolve')
+	 		else
+	 			defered.reject('asyncC rejected')
+
+	 		},2000)
+	 		
+	 		return defered.promise;
+	 	}
+
+
+ 		$q.all([$scope.asyncA('a'),$scope.asyncB('c'),$scope.asyncC('c')])
+		.then(function (asyncC) {
+		    console.log(asyncC)
+		})
+		.catch(function (error) {
+		    console.log(error)
+		})
+		
+
 
 
  })
