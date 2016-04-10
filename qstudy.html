@@ -39,6 +39,26 @@
  		return defered.promise;
  	}
 
+ 	$scope.oneNotify = function(value){
+
+ 		var defered = $q.defer()
+
+ 		setTimeout(function(){
+
+ 			if(value=='one')
+ 			defered.resolve('im resolve')
+ 			if(value=='two')
+ 			defered.reject('im rejected')
+ 			if(value=='three')
+ 			defered.reject('im notification')
+
+ 		},2000)
+ 		
+
+
+ 		return defered.promise;
+ 	}
+
  	$scope.one()
 
  	$scope.onePromise = function(){
@@ -70,6 +90,61 @@
  	}
 
  	$scope.onePromiseTwo()
+
+ 	$scope.onePromiseThree = function(){
+
+ 		var promise = $scope.one('two');
+
+ 		promise.then(function(response){
+
+ 			console.log(response,' onePromiseThree Two Success')
+ 		}).catch(function(error) {
+
+ 			console.log(error,' onePromiseThree Two Error')
+ 		}).finally(function(){
+
+ 			console.log('i will execute finally ')
+ 		})
+ 	}
+
+ 	$scope.onePromiseThree()
+
+
+ 	$scope.onePromiseFour = function(){
+
+ 		var promise = $scope.one('one');
+
+ 		promise.then(function(response){
+
+ 			console.log(response,' onePromiseFour Two Success')
+ 		},function(error){
+
+ 			console.log(error,' onePromiseFour Two Error')
+ 		},function(notify){
+
+ 			console.log(notify,' onePromiseFour Two Notify')
+ 		})
+ 	}
+
+ 	$scope.onePromiseFour()
+
+ 	$scope.onePromiseFive = function(){
+
+ 		var promise = $scope.oneNotify('three');
+
+ 		promise.then(function(response){
+
+ 			console.log(response,' onePromiseFive  Success')
+ 		},function(error){
+
+ 			console.log(error,' onePromiseFive  Error')
+ 		},function(notify){
+
+ 			console.log(notify,' onePromiseFive  Notify')
+ 		})
+ 	}
+
+ 	$scope.onePromiseFive()
 
 
  })
