@@ -1,0 +1,64 @@
+<html ng-app="QStudy">
+<head>
+<title>$q Practice</title>
+<script type="text/javascript" src="Scripts/angular.min.js"></script>
+<script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
+</head>
+<body ng-controller="QStudy">
+
+
+ <script>
+
+ var app = angular.module('QStudy',[]);
+
+ app.controller('QStudy',function($scope,$q){
+
+
+ 	$scope.cosoleobj = function () {
+
+ 		console.log($q)
+ 	}
+
+ 	$scope.cosoleobj()
+
+ 	$scope.one = function(value){
+
+ 		var defered = $q.defer()
+
+ 		if(value=='one')
+ 		defered.resolve('im resolve')
+ 		else
+ 			defered.reject('im rejected')
+
+
+ 		return defered.promise;
+ 	}
+
+ 	$scope.one()
+
+ 	$scope.onePromise = function(){
+
+ 		var promise = $scope.one('two');
+
+ 		promise.then(function(response){
+
+ 			console.log(response,' onePromise')
+ 		},function(error){
+
+ 			console.log(error,' onePromise Error')
+ 		})
+ 	}
+
+ 	$scope.onePromise()
+
+
+ })
+
+ </script>
+
+
+
+
+</body>
+</html>
+
