@@ -31,7 +31,7 @@
  		defered.resolve('im resolve')
  		else
  			defered.reject('im rejected')
- 			
+
  		},2000)
  		
 
@@ -55,6 +55,21 @@
  	}
 
  	$scope.onePromise()
+
+ 	$scope.onePromiseTwo = function(){
+
+ 		var promise = $scope.one('two');
+
+ 		promise.then(function(response){
+
+ 			console.log(response,' onePromise Two Success')
+ 		}).catch(function(error) {
+
+ 			console.log(error,' onePromise Two Error')
+ 		})
+ 	}
+
+ 	$scope.onePromiseTwo()
 
 
  })
