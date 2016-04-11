@@ -65,6 +65,25 @@
 
  	console.log(inherit,'inherit will affect original')
 
+
+ 	var objX = {name:"one",address:"aloor",personal:{
+
+ 		hobbies:{
+ 			name:"sports",
+ 			time:"evening",
+ 			friends:{
+ 				name:"thanu",
+ 				age:objH
+ 			}
+ 		}
+ 	}}
+
+ 	var objY = {name:"two"}
+
+ 	var objZ = angular.extend(objX,objY);
+
+ 	console.log(objZ,'objZ Deep copy')
+
  	
 })
 
@@ -114,9 +133,10 @@ extendstudy.html:41 Object {name: "one", age: "29"} "objI"
 extendstudy.html:43 Object {name: "one", age: "29"} "objG Original object will affect"
 extendstudy.html:62 Object {name: "Siva", age: 31} "inherit"
 extendstudy.html:66 A {name: "Siva", age: 31, address: "aloor"} "inherit will affect original"
-extendstudy.html:96 Constructor {state: "Tn", street: "servite"} "extendedservice"
-extendstudy.html:87 Tn is my state
-extendstudy.html:98 undefined
+extendstudy.html:85 Object {name: "two", address: "aloor", personal: Object}address: "aloor"name: "two"personal: Objecthobbies: Objectfriends: Objectage: Objectage: "29"__proto__: Objectname: "thanu"__proto__: Objectname: "sports"time: "evening"__proto__: Object__proto__: Object__proto__: Object "objZ Deep copy"
+extendstudy.html:115 Constructor {state: "Tn", street: "servite"} "extendedservice"
+extendstudy.html:106 Tn is my state
+extendstudy.html:117 undefined
 
  -->
 
