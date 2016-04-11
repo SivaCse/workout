@@ -1,0 +1,62 @@
+<html ng-app="FEStudy">
+<head>
+<title>forEach Practice</title>
+<script type="text/javascript" src="Scripts/angular.min.js"></script>
+<script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
+</head>
+<body ng-controller="FEStudy">
+
+
+ <script>
+
+ var app = angular.module('FEStudy',[]);
+
+ app.controller('FEStudy',function($scope){
+
+ 	$scope.indexarr = ['one','two','three']
+
+ 	$scope.indexarr.forEach(function(item,key,complete){
+
+ 		console.log(item,'single item')
+ 		console.log(key,'key of item')
+ 		console.log(complete,'complete item')
+
+ 	})
+
+
+ 	/* without key ,complete param*/
+
+ 	$scope.indexarr.forEach(function(item){
+
+ 		console.log(item)
+
+ 	})
+
+
+ 	$scope.container = [];
+ 	$scope.indexarr.forEach(function(item){
+
+ 		this.push(item)
+
+ 	},$scope.container)
+
+ 	console.log($scope.container,'container after pushed')
+
+ 	$scope.indexarr.push('five')
+
+ 	$scope.container.push('six')
+
+ 	console.log($scope.indexarr,'after push indexarr')
+
+ 	console.log($scope.container,'after push container ')
+
+})
+
+ </script>
+
+
+
+
+</body>
+</html>
+
