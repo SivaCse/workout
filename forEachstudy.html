@@ -1,7 +1,7 @@
 <html ng-app="FEStudy">
 <head>
 <title>forEach Practice</title>
-<script type="text/javascript" src="Scripts/angular.min.js"></script>
+<script type="text/javascript" src="Scripts/angular.js"></script>
 <script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
 </head>
 <body ng-controller="FEStudy">
@@ -50,6 +50,25 @@
 
  	console.log($scope.container,'after push container ')
 
+ 	$scope.indexarr.forEach(function(item){
+
+ 		console.log(this,'this testing')
+
+ 	},$scope.container)
+
+
+ 	var obj = {name:"Siva",numbers:[]}
+
+ 	$scope.indexarr.forEach(function(item){
+
+ 		this.numbers.push("-"+item+'-')
+
+ 	},obj)
+
+ 	console.log('After pushing numbers property',obj)
+
+
+
 })
 
  </script>
@@ -72,6 +91,11 @@ forEachstudy.html:31 three
 forEachstudy.html:43 ["one", "two", "three"] "container after pushed"
 forEachstudy.html:49 ["one", "two", "three", "five"] "after push indexarr"
 forEachstudy.html:51 ["one", "two", "three", "six"] "after push container "
+forEachstudy.html:55 ["one", "two", "three", "six"] "this testing"
+forEachstudy.html:55 ["one", "two", "three", "six"] "this testing"
+forEachstudy.html:55 ["one", "two", "three", "six"] "this testing"
+forEachstudy.html:55 ["one", "two", "three", "six"] "this testing"
+forEachstudy.html:68 After pushing numbers property Object {name: "Siva", numbers: Array[4]}
 
  -->
 

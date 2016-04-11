@@ -1,0 +1,88 @@
+<html ng-app="ExStudy">
+<head>
+<title>Extend Practice</title>
+<script type="text/javascript" src="Scripts/angular.js"></script>
+<script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
+</head>
+<body ng-controller="ExStudy">
+
+
+ <script>
+
+ var app = angular.module('ExStudy',[]);
+
+ app.controller('ExStudy',function($scope){
+
+ 	
+ 	var objA = {name:"one"}
+
+ 	var objB = {name:"two"}
+
+ 	var objC = angular.extend({},objA,objB)
+
+ 	console.log(objC,'objC')
+
+ 	var objD = {name:"one"}
+
+ 	var objE = {age:"29"}
+
+ 	var objF = angular.extend({},objD,objE)
+
+ 	console.log(objF,'objF But original object will not affect')
+
+ 	console.log(objE,'objE')
+
+ 	var objG = {name:"one"}
+
+ 	var objH = {age:"29"}
+
+ 	var objI = angular.extend(objG,objH)
+
+ 	console.log(objI,'objI')
+
+ 	console.log(objG,'objG Original object will affect')
+
+ 	function A(){
+
+ 		this.name = 'Siva'
+ 	}
+
+ 	function B(){
+
+ 		this.age=31
+ 	}
+
+ 	function C(){
+
+ 		this.address='aloor'
+ 	}
+
+ 	var inherit = angular.extend({},new A,new B)
+
+ 	console.log(inherit,'inherit')
+
+ 	 inherit = angular.extend(new A,new B,new C)
+
+ 	console.log(inherit,'inherit will affect original')
+
+
+})
+
+ </script>
+
+
+<!-- 
+
+extendstudy.html:23 Object {name: "two"} "objC"
+extendstudy.html:31 Object {name: "one", age: "29"} "objF But original object will not affect"
+extendstudy.html:33 Object {age: "29"} "objE"
+extendstudy.html:41 Object {name: "one", age: "29"} "objI"
+extendstudy.html:43 Object {name: "one", age: "29"} "objG Original object will affect"
+extendstudy.html:62 Object {name: "Siva", age: 31} "inherit"
+extendstudy.html:66 A {name: "Siva", age: 31, address: "aloor"} "inherit will affect original"
+
+ -->
+
+</body>
+</html>
+
