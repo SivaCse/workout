@@ -149,26 +149,7 @@
  	$scope.onePromiseFive()
 
 
- 	$scope.onePromiseSix = function(){
-
- 		var promise = $scope.oneWhen('two');
-
- 		promise.then(function(response){
-
- 			console.log(response,' onePromiseSix  Success')
- 		},function(error){
-
- 			console.log(error,' onePromiseSix  Error')
- 		},function(notify){
-
- 			console.log(notify,' onePromiseSix  Notify')
- 		})
- 	}
-
- 	$scope.onePromiseSix()
-
-
-
+ 	
  	/* study $q.all */
 
 
@@ -270,18 +251,17 @@
 /* Output is */
 
 /*Object {}
-qstudy.html:175  onePromiseSix  Success  onePromiseSix  Success
 qstudy.html:75 im rejected  onePromise Error
 qstudy.html:121 im resolve  onePromiseFour Two Success
 qstudy.html:142 im notification  onePromiseFive  Error
+qstudy.html:222 asyncA resolve a
 qstudy.html:90 im rejected  onePromise Two Error
 qstudy.html:105 im rejected  onePromiseThree Two Error
-qstudy.html:243 ["asyncA resolve", "asyncB resolve", "asyncC resolve"] "success"
+qstudy.html:207 ["asyncA resolve", "asyncB resolve", "asyncC resolve"] "success"
 qstudy.html:108 i will execute finally 
-qstudy.html:258 asyncA resolve a
-qstudy.html:263 asyncB resolve b
-qstudy.html:273 asyncC rejected error on Chaining
-qstudy.html:279 ["asyncA resolve", "asyncB resolve"] "chainedResults"*/
+qstudy.html:227 asyncB resolve b
+qstudy.html:237 asyncC rejected error on Chaining
+qstudy.html:243 ["asyncA resolve", "asyncB resolve"] "chainedResults"*/
 
 
  </script>
