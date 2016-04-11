@@ -11,7 +11,7 @@
 
  var app = angular.module('QStudy',[]);
 
- app.controller('QStudy',function($scope,$q){
+ app.controller('QStudy',function($scope,$q,$timeout){
 
 
  	$scope.cosoleobj = function () {
@@ -245,7 +245,35 @@
 		.catch(function (error) {
 		    console.log(error)
 		})
-		
+
+
+
+
+
+
+        $scope.chainedResults = []
+
+		$scope.asyncA('a')
+		.then(function(a){
+		console.log(a,'a')
+		$scope.chainedResults.push(a)
+		return $scope.asyncB('b')
+		})
+		.then(function(b){
+		console.log(b,'b')
+		$scope.chainedResults.push(b)
+		return $scope.asyncC('c')
+	   })
+	   .then(function(c){
+	   	$scope.chainedResults.push(c)
+	   console.log(c,'c')
+	   })
+
+	
+	   $timeout(function() {
+
+	   	console.log($scope.chainedResults,'chainedResults')
+	   }, 10000);	
 
 
 
@@ -254,16 +282,21 @@
 
 /* Output is */
 
+/*qstudy.html:19 Object {}
 qstudy.html:175  onePromiseSix  Success  onePromiseSix  Success
-qstudy.html:75 	im rejected  onePromise Error
+qstudy.html:75 im rejected  onePromise Error
 qstudy.html:121 im resolve  onePromiseFour Two Success
 qstudy.html:142 im notification  onePromiseFive  Error
-qstudy.html:90 	im rejected  onePromise Two Error
+qstudy.html:90 im rejected  onePromise Two Error
 qstudy.html:105 im rejected  onePromiseThree Two Error
 qstudy.html:243 ["asyncA resolve", "asyncB resolve", "asyncC resolve"] "success"
 qstudy.html:108 i will execute finally 
+qstudy.html:258 asyncA resolve a
+qstudy.html:263 asyncB resolve b
+qstudy.html:269 asyncC resolve c
+qstudy.html:275 ["asyncA resolve", "asyncB resolve", "asyncC resolve"] "chainedResults"*/
 
-/* */
+
  </script>
 
 
