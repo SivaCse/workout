@@ -65,12 +65,46 @@
 
  	console.log(inherit,'inherit will affect original')
 
-
+ 	
 })
+
+	
+
+ app.service('serviceD',function D(){
+
+ 		this.street = 'servite';
+ 		this.getStreet = function(){
+
+ 			console.log(this.street)
+ 		}
+ 	});
+
+ app.service('serviceE',function E(){
+
+ 		this.state = "Tn";
+ 		this.getState = function(){
+
+ 			console.log(this.state,'is my state')
+ 		}
+ 	});
+ 
+ app.controller('ACtrl',function($scope,serviceD,serviceE){
+
+
+ 	var extendedservice = angular.extend(serviceE,serviceD);
+
+ 	console.log(extendedservice,'extendedservice')
+
+ 	console.log(extendedservice.getState())
+
+ })	
 
  </script>
 
+<div ng-controller="ACtrl">
+	
 
+</div>
 <!-- 
 
 extendstudy.html:23 Object {name: "two"} "objC"
@@ -80,6 +114,9 @@ extendstudy.html:41 Object {name: "one", age: "29"} "objI"
 extendstudy.html:43 Object {name: "one", age: "29"} "objG Original object will affect"
 extendstudy.html:62 Object {name: "Siva", age: 31} "inherit"
 extendstudy.html:66 A {name: "Siva", age: 31, address: "aloor"} "inherit will affect original"
+extendstudy.html:96 Constructor {state: "Tn", street: "servite"} "extendedservice"
+extendstudy.html:87 Tn is my state
+extendstudy.html:98 undefined
 
  -->
 
