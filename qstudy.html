@@ -149,23 +149,6 @@
  	$scope.onePromiseFive()
 
 
- 	$scope.oneWhen = function(value){
-
- 		var defered = $q.defer();
-
- 		var when = $q.when(value==='three',function(){
-
- 			defered.resolve(' onePromiseSix  Success')
- 		},function(){
-
- 			defered.reject(' onePromiseSix  Error')
- 		})
-
- 		return defered.promise;
-
- 	}
-
-
  	$scope.onePromiseSix = function(){
 
  		var promise = $scope.oneWhen('two');
