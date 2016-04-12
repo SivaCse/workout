@@ -1,0 +1,82 @@
+<html ng-app="BindStudy">
+<head>
+<title>BindStudy Practice</title>
+<script type="text/javascript" src="Scripts/angular.js"></script>
+<script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
+</head>
+<body ng-controller="BindStudy">
+
+
+ <script>
+
+ var app = angular.module('BindStudy',[]);
+
+ app.controller('BindStudy',function($scope){
+
+ 	
+ 	var objA = {name:"one"}
+
+ 	var objB = {name:"two"}
+
+ 	$scope.name = 'Global'
+ 	
+ 	var bound = angular.bind(objA,function(){
+
+ 		console.log(this.name)
+
+ 	})
+
+ 	bound()
+
+
+ 	$scope.studentDetails = function(){
+
+ 		console.log("Student Name is :",this.name);
+ 		console.log("Student Age  is :",this.age);
+ 		console.log("Student Address :",this.address);
+
+ 	}
+
+    $scope.student1 = {
+    	name : "Siva",
+    	age  : "31",
+    	address: "Aloor"
+    }
+
+    var student1 = angular.bind($scope.student1,$scope.studentDetails);
+
+    student1()
+
+    $scope.student2 = {
+    	name : "Bharathi",
+    	age  : "22",
+    	address: "Punnainagar"
+    }
+
+    var student2 = angular.bind($scope.student2,$scope.studentDetails);
+
+    student2()
+
+ 	
+ 	
+ })	
+
+ </script>
+
+
+<!-- 
+
+bindstudy.html:25 one
+bindstudy.html:34 Student Name is : Siva
+bindstudy.html:35 Student Age  is : 31
+bindstudy.html:36 Student Address : Aloor
+bindstudy.html:34 Student Name is : Bharathi
+bindstudy.html:35 Student Age  is : 22
+bindstudy.html:36 Student Address : Punnainagar
+
+
+ -->
+
+</body>
+</html>
+

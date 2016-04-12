@@ -1,0 +1,109 @@
+<html ng-app="InjectorStudy">
+<head>
+<title>InjectorStudy Practice</title>
+<script type="text/javascript" src="Scripts/angular.js"></script>
+<script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+
+<div ng-controller="InjectorStudy"></div>
+
+<div ng-controller="InjectorStudy2"></div>
+
+<div ng-controller="InjectorStudy3"></div>
+
+ <script>
+
+ var app = angular.module('InjectorStudy',[]);
+
+ var app2 = angular.module('InjectorStudy2',[]);
+
+  app.service('ServiceA',function(){
+
+ 	this.getName = function(){
+
+ 		console.log('Hello iam ServiceA')
+ 	}
+ })
+
+  app2.service('ServiceA2',function(){
+
+ 	this.getName = function(){
+
+ 		console.log('Hello iam ServiceA2')
+ 	}
+ })
+
+ app.controller('InjectorStudy',InjectorStudy)	
+
+ function InjectorStudy($scope,ServiceA){
+
+ 	console.log(ServiceA)
+
+ 	var $injector = angular.injector(['ng']);
+
+ 	var instance = $injector.get('$http');
+
+ 	instance.get('http://localhost/cceecit/cache.php')
+ 	
+ }
+
+ InjectorStudy.$injector = ['$scope','ServiceA']
+
+
+ app.controller('InjectorStudy2',function($scope){
+
+ 	var $injector = angular.injector(['InjectorStudy2']);
+
+ 	var instance = $injector.get('ServiceA2');
+
+ 	console.log(instance,'ServiceA2')
+
+ 	instance.getName()
+
+
+ })
+
+ app.controller('InjectorStudy3',function($scope,$rootScope){
+
+ 	var $injector = angular.injector(['ng']);
+
+    $injector.invoke(function($rootScope){
+
+    	console.log($rootScope,'$rootScope')
+
+    	$rootScope.$apply("message=2")
+
+    	$rootScope.$digest();
+    })
+
+    console.log(' is ng module has $http service? ',$injector.has('$http'))
+
+    console.log($rootScope,"$rootScope")
+
+    console.log($scope,"$scope")
+
+
+ })
+
+
+
+ </script>
+
+
+<!-- 
+
+	injectorstudy.html:41 Constructor {}
+injectorstudy.html:60 Constructor {} "ServiceA2"
+injectorstudy.html:33 Hello iam ServiceA2
+injectorstudy.html:73 Scope {$id: "007", $$childTail: null, $$childHead: null, $$prevSibling: null, $$nextSibling: null…} "$rootScope"
+injectorstudy.html:80  is ng module has $http service?  true
+injectorstudy.html:82 Scope {$id: "002", $$childTail: ChildScope, $$childHead: ChildScope, $$prevSibling: null, $$nextSibling: null…} "$rootScope"
+injectorstudy.html:84 ChildScope {$id: "006", this: ChildScope, $$listeners: Object, $$listenerCount: Object, $parent: Scope…}$$childHead: null$$childTail: null$$listenerCount: Object$$listeners: Object$$nextSibling: null$$prevSibling: ChildScope$$watchers: null$id: "006"$parent: Scopethis: ChildScope__proto__: Scope "$scope"
+
+
+ -->
+
+</body>
+</html>
+
