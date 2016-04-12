@@ -1,0 +1,72 @@
+<html ng-app="ApplyStudy">
+<head>
+<title>Apply Practice</title>
+<script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="Scripts/angular.js"></script>
+</head>
+<body>
+
+<div ng-controller="ApplyStudy" id="ApplyStudy">
+    
+    {{message}}
+</div>
+
+<button onclick="outside()"> Outside </button>
+<button onclick="outside2()"> Outside2 </button>
+<button onclick="outside3()"> Outside3 </button>
+ <script>
+
+ var app = angular.module('ApplyStudy',[]);
+
+ app.controller('ApplyStudy',function($scope){
+
+
+    $scope.message = 'Old'
+
+
+ })
+
+function outside() {
+
+var scope = angular.element('#ApplyStudy').scope();
+scope.message = 'New';
+scope.$digest()
+console.log(scope.message,'outside')
+}
+
+
+function outside2() {
+
+var scope = angular.element('#ApplyStudy').scope();
+
+scope.$apply(function(){
+scope.message = 'New2';
+
+})
+console.log(scope.message,'outside2')
+}
+
+function outside3() {
+
+var scope = angular.element('#ApplyStudy').scope();
+scope.$apply("message = 'New3'")
+console.log(scope.message,'outside3')
+}
+
+
+ </script>
+
+ <!-- 
+
+if expression inside $apply then no need to $digest bcoz it will call automatically
+
+applystudy.html:34 New outside
+applystudy.html:46 New2 outside2
+applystudy.html:53 New3 outside3
+
+
+  -->
+
+</body>
+</html>
+

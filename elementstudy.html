@@ -1,0 +1,147 @@
+<html >
+<head>
+<title>Element Practice</title>
+<script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="Scripts/angular.js"></script>
+</head>
+<body>
+
+<div ng-app="ElementStudy">
+
+<div ng-controller="ElementStudy" id="ElementStudy">
+    
+    
+</div>
+
+<button onclick="elem()"> elem </button>
+<button onclick="elem2()"> elem2 </button> 
+<button onclick="elem3()"> elem3 </button> 
+<button onclick="elem4()"> elem4 </button> 
+<button onclick="elem5()"> elem5 </button> 
+<button onclick="elem6()"> elem6 </button> 
+<button onclick="elem7()"> elem7 </button> 
+
+</div>
+ <script>
+
+ var app = angular.module('ElementStudy',[]);
+
+ app.controller('ElementStudy',function($scope,$compile){
+
+
+    $scope.message = 'Old';
+
+    $scope.arr = ['one','two','three']
+
+    $scope.hello = function(message){
+
+        console.log('inside hello function',message)
+    }
+
+    $scope.dayana = function(i){
+
+        console.log('value is i ',i)
+    }
+
+    $scope.dynamicFn = function() {
+
+        for(var i=0;i<5;i++){
+
+            $('#ElementStudy').append($compile('<button ng-click="dayana('+i+')">Click Me </button>')($scope))
+
+        }
+
+    }
+
+
+
+ })
+
+function elem() {
+
+var elem = angular.element('#ElementStudy').scope();
+ 
+console.log(elem,'elem')
+}
+
+function elem2() {
+
+var elem = angular.element('#ElementStudy');
+ 
+console.log(elem,'elem2')
+}
+
+function elem3() {
+
+var elem = angular.element('#ElementStudy');
+ 
+elem.html('Hello')
+
+}
+
+function elem4() {
+
+var elem = angular.element('#ElementStudy');
+
+var scope = angular.element('#ElementStudy').scope();
+
+elem.html('<button id="elem4">Hello</button>')
+
+$('#elem4').click(function(){
+
+    scope.hello('how are you?');    
+})
+
+
+}
+
+function elem5() {
+
+var elem = angular.element('[ng-controller="ElementStudy"]');
+
+var scope = angular.element('[ng-controller="ElementStudy"]').scope();
+
+scope.$apply('hello=123')
+
+console.log(scope,'scope [ng-controller="ElementStudy"]')
+
+
+}
+
+function elem6() {
+
+var elem = angular.element('[ng-controller="ElementStudy"]');
+
+var scope = angular.element('[ng-controller="ElementStudy"]').scope();
+
+scope.dynamicFn();
+
+
+}
+
+function elem7() {
+
+var elem = angular.element('[ng-controller="ElementStudy"]');
+
+var scope = angular.element('[ng-controller="ElementStudy"]').scope();
+
+var $injector = angular.injector(['ng']);
+
+var compile = $injector.get('$compile');
+for(var i=0;i<5;i++) {
+
+            $('#ElementStudy').append(compile('<button ng-click="dayana('+i+')">Click Me </button>')(scope))
+
+        }
+}        
+ </script>
+
+ <!-- 
+
+
+
+  -->
+
+</body>
+</html>
+
