@@ -1,0 +1,82 @@
+<html ng-app="RestStudy">
+<head>
+<title>RestStudy Practice</title>
+<script type="text/javascript" src="angular.min.js"></script>
+<script type="text/javascript" src="underscore.js"></script>
+<script type="text/javascript" src="restangular.min.js"></script>
+</head>
+<body ng-controller="FirstController">
+
+<button ng-click="getStudentsList()">List</button>
+<button ng-click="saveStudent()">Save</button>
+<button ng-click="EditStudent()">Edit</button>
+
+<button ng-click="DeleteStudent()">Remove</button>
+
+<script type="text/javascript">
+	
+var app = angular.module('RestStudy',['restangular'])
+
+app.config(function(RestangularProvider,$sceDelegateProvider){
+
+	RestangularProvider.setBaseUrl('http://localhost:9000');
+	$sceDelegateProvider.resourceUrlWhitelist([
+	'self',
+	'http://localhost:9000/**']);
+})
+
+app.factory('StudentsFactory',function(Restangular){
+
+return Restangular.all('students');
+
+})
+
+
+
+app.controller('FirstController',function($scope,StudentsFactory){
+
+
+	$scope.student = {};
+
+	$scope.getStudentsList = function() {
+
+		StudentsFactory.getList().then(function(students){
+
+			$scope.student = students[0];
+			
+		})
+		
+	}
+
+	
+
+	$scope.saveStudent = function() {
+
+		var obj = {name:"Ram1"}
+		StudentsFactory.post(obj)
+
+	}
+
+	$scope.EditStudent = function() {
+
+		$scope.student.name = 'Thangam'
+		$scope.student.save();
+	}
+
+	$scope.DeleteStudent = function() {
+
+		$scope.student.remove();
+	}
+
+	
+
+
+})
+ 
+</script>
+
+
+
+</body>
+</html>
+
