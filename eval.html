@@ -1,0 +1,44 @@
+<html ng-app="EvalStudy">
+<head>
+<title>Eval Practice</title>
+<script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="Scripts/angular.js"></script>
+</head>
+<body>
+
+<div ng-controller="EvalStudy1">
+    
+    
+</div>
+
+
+
+ <script>
+
+ var app = angular.module('EvalStudy',[]);
+
+ app.controller('EvalStudy1',function($scope){
+
+ 	$scope.message = 'hi';
+
+ 	$scope.$eval('message="hello"')
+
+ 	console.log($scope.message)
+    
+ 	$scope.$eval(function hello(){
+
+ 		console.log('inside hello')
+ 	})
+
+ 	$scope.$eval('hello()')
+
+ 	console.log($scope,'$scope')
+
+ })
+
+ 
+ </script>
+
+</body>
+</html>
+

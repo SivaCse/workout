@@ -1,0 +1,135 @@
+<html ng-app="EmitStudy">
+<head>
+<title>Emit Practice</title>
+<script type="text/javascript" src="Scripts/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="Scripts/angular.js"></script>
+</head>
+<body>
+
+<div ng-controller="EmitStudy1">
+    
+    
+</div>
+
+<div ng-controller="EmitStudy2">
+    <button ng-click="emiting()"> emiting </button>
+    
+</div>
+
+<div ng-controller="ParentCtrl">
+	
+	<button ng-click="passmsgtomyson()">passmsgtomyson</button>
+
+			<div ng-controller="ChildCtrl">
+	
+				<button ng-click="passmsgtomyparent()">passmsgtomyparent</button>
+
+				<div ng-controller="GrandChildCtrl">
+	
+				<button ng-click="passmsgtomyparent()">passmsgtomyparent</button>
+	
+				</div>
+	
+			</div>
+
+</div>
+
+ <script>
+
+ var app = angular.module('EmitStudy',[]);
+
+ app.controller('EmitStudy1',function($scope,$rootScope){
+
+
+    $rootScope.$on('edit',function(event,message){
+
+    	console.log('emitting',message)
+    })
+
+
+ })
+
+ app.controller('EmitStudy2',function($scope,$rootScope){
+
+
+ 	$scope.emiting = function () {
+
+ 	$rootScope.$emit('edit',{message:"hello how are you"});
+
+ 	}
+
+
+
+ })
+
+
+ app.controller('ParentCtrl',function($scope,$rootScope){
+
+
+ 	
+
+ 	$scope.$on('childsmessage',function(event,message){
+
+
+ 		console.log('childs message is ',message,' event is ',event)
+ 	});
+
+ 	$scope.passmsgtomyson = function () {
+
+ 	$scope.$broadcast('parentsmessage',{message:"hello son how are you?"});
+
+ 	}	
+
+
+ })
+
+
+ app.controller('ChildCtrl',function($scope,$rootScope){
+
+
+ 	$scope.passmsgtomyparent = function () {
+
+ 	$scope.$emit('childsmessage',{message:"hello daddy how are you? 1"});
+ 	$scope.$emit('childsmessage',{message:"hello daddy how are you? 2"});
+ 	$scope.$emit('childsmessage',{message:"hello daddy how are you? 3"});
+
+ 	}
+
+ 	$scope.$on('parentsmessage',function(event,message){
+
+
+ 		console.log('Appa"s  message is ',message,'event is ',event)
+ 	});
+
+
+
+ })
+
+ app.controller('GrandChildCtrl',function($scope,$rootScope){
+
+
+ 	$scope.passmsgtomyparent = function () {
+
+ 	$scope.$emit('childsmessage',{message:"hello Grandpa how are you?"});
+
+ 	}
+
+ 	$scope.$on('parentsmessage',function(event,message){
+
+
+ 		console.log('Appa"s  message is in GrandChildCtrl ',message,'event is ',event)
+ 	});
+
+
+
+ })
+
+
+
+ </script>
+
+ 
+
+</body>
+</html>
+
