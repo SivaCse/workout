@@ -1,0 +1,136 @@
+<html ng-app="RestStudy">
+<head>
+<title>RestStudy Practice</title>
+<script type="text/javascript" src="angular.min.js"></script>
+<script type="text/javascript" src="underscore.js"></script>
+<script type="text/javascript" src="restangular.min.js"></script>
+</head>
+<body ng-controller="FirstController">
+
+<button ng-click="getStudentsList()">List</button>
+<button ng-click="saveStudent()">Save</button>
+<button ng-click="EditStudent()">Edit</button>
+<button ng-click="DeleteStudent()">Remove</button>
+<button ng-click="getAddress()">getAddress</button>
+<script type="text/javascript">
+	
+var app = angular.module('RestStudy',['restangular'])
+
+app.config(function(RestangularProvider,$sceDelegateProvider){
+
+	RestangularProvider.setBaseUrl('http://localhost/api/v1/');
+	$sceDelegateProvider.resourceUrlWhitelist([
+	'self',
+	'http://localhost/api/v1/**']);
+
+	RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+	      var responseInt;
+	      if (operation === "getList") {
+	        responseInt = response.data;
+	      } else {
+	        responseInt = data.data;
+	      }
+	      return responseInt;
+	    });
+
+	RestangularProvider.addRequestInterceptor(function(config , operation, what, url, request, deferred) {
+
+		console.log(config , operation, what, url, request, deferred,'config')
+	      var extractedData;
+	      if (operation === "getList") {
+	        extractedData = 'response.data';
+	      } else {
+	        extractedData = 'data.data';
+	      }
+	      return extractedData;
+	    });
+
+
+		
+
+
+	
+})
+
+app.factory('CustomerFactory',function(Restangular){
+
+
+Restangular.setRestangularFields({id:'customer_id'})  // custom primary key 
+Restangular.all('customers');
+Restangular.extendCollection('customers', function(collection) { // custom method
+	    collection.totalCustomers = function() {
+	      return collection.length;
+	    };
+
+	    return collection;
+	  });
+return Restangular.all('customers');
+
+})
+
+
+
+app.controller('FirstController',function($scope,CustomerFactory){
+
+
+	$scope.student = {};
+	$scope.students = {};
+	$scope.totalmembers = 0;
+
+	$scope.getStudentsList = function() {
+
+
+		// pagination snippet	
+		CustomerFactory.getList({limit:10,offset:0}).then(function(students){
+
+			$scope.student = students[0];
+			$scope.students = students;
+			console.log(students,'students')
+			$scope.totalmembers = $scope.students.totalCustomers();
+			
+		})
+		
+	}
+
+	
+
+	$scope.saveStudent = function() {
+
+		var obj = {name:"Ram1"}
+		CustomerFactory.post(obj)
+
+	}
+
+	$scope.EditStudent = function() {
+
+		$scope.student.name = 'Thangam'
+		$scope.student.save();
+	}
+
+	$scope.DeleteStudent = function() {
+
+		$scope.student.remove();
+	}
+
+
+	$scope.getAddress = function() {
+
+		$scope.student.getList('address');
+	}
+	
+
+
+})
+ 
+</script>
+
+
+<ul>
+	<li ng-repeat="student in students"  ng-bind="student.name"></li>
+</ul>
+
+<div ng-bind="totalmembers"></div>
+
+</body>
+</html>
+
